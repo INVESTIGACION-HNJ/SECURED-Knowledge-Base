@@ -4,7 +4,7 @@ import json
 
 
 SERVER_ROOT = ""
-SERVER_URI = SERVER_ROOT + "ws/download"
+SERVER_URI = SERVER_ROOT + "/ws/download"
 
 async def download_file(remote_name, category, local_path):
 

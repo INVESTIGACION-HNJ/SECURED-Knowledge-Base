@@ -59,3 +59,9 @@ async def upload_file(remote_name, category, local_path):
         file_stream.close()
             
 
+async def main():
+    await upload_file("testICCSdataset.zip", "datasets", "./testICCSdataset.zip")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+    # await main()
