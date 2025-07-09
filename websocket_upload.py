@@ -4,7 +4,7 @@ import math
 import json
 import os
 
-SERVER_ROOT = "wss://orion.ispatial.survey.ntua.gr"
+SERVER_ROOT = ""
 SERVER_URI = SERVER_ROOT + "/ws/upload"
 CHUNK_SIZE = 1024 * 64
 
@@ -51,6 +51,7 @@ async def upload_file(remote_name, category, local_path):
                 # print(f"Download started: {message['fileName']} with {message['total_chunks']} chunks")
             
             if message["type"] == "upload_complete":
+                print(message)
                 await websocket.send(json.dumps({
                     "type": "close_connection"
                 }))
