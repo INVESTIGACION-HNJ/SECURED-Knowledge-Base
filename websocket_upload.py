@@ -4,7 +4,7 @@ import math
 import json
 import os
 
-SERVER_ROOT = ""
+SERVER_ROOT = "wss://orion.ispatial.survey.ntua.gr"
 SERVER_URI = SERVER_ROOT + "/ws/upload"
 CHUNK_SIZE = 1024 * 64
 
@@ -54,13 +54,16 @@ async def upload_file(remote_name, category, local_path):
                 await websocket.send(json.dumps({
                     "type": "close_connection"
                 }))
+                file_stream.close()
+                await websocket.close()
                 break
 
-        file_stream.close()
+        
             
 
 async def main():
-    await upload_file("testICCSdataset.zip", "datasets", "./testICCSdataset.zip")
+    # await upload_file("testICCSdataset.zip", "datasets", "./testICCSdataset.zip")
+    await upload_file("text.txt", "datasets", "./text.txt")
 
 if __name__ == "__main__":
     asyncio.run(main())
