@@ -3,7 +3,7 @@ import websockets
 import json
 
 
-SERVER_ROOT = ""
+SERVER_ROOT = "wss://orion.ispatial.survey.ntua.gr"
 SERVER_URI = SERVER_ROOT + "/ws/download"
 
 async def download_file(remote_name, category, local_path):
@@ -29,11 +29,10 @@ async def download_file(remote_name, category, local_path):
             message = json.loads(response)
 
             if message["type"] == "download_ready":
-                print("yess")
                 await websocket.send(json.dumps({
                     "type": "file_chunk"
-                }))
-                # print(f"Download started: {message['fileName']} with {message['total_chunks']} chunks")
+                })) 
+                print(f"Download started: {message['fileName']} with {message['total_chunks']} chunks")
             
             elif message["type"] == "file_chunk":
                 chunk_data = message["chunk"].encode("latin1")
@@ -47,7 +46,7 @@ async def download_file(remote_name, category, local_path):
 
             elif message["type"] == "download_complete":
                 file_stream.close()
-                # print(f"Download complete: {message['fileName']}")
+                print(f"Download complete: {message['fileName']}")
                 await websocket.send(json.dumps({
                     "type": "close_connection"
                 }))
